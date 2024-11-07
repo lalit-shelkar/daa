@@ -1,0 +1,64 @@
+n=4
+board=[['.' for _ in range(n)]for _ in range(n)]
+allboards=[]
+
+def isSafe(board,row,col):
+    for j in range(len(board)):
+        if(board[row][j]=='Q'):
+            return False
+    for i in range(len(board)):
+        if(board[i][col]=='Q'):
+            return False
+
+    r=row
+    c=col
+    while(r>=0 and c>=0):
+        if(board[r][c]=="Q"):
+            return False
+        r-=1
+        c-=1
+    r=row
+    c=col
+    while(r>=0 and c<len(board)):
+        if(board[r][c]=="Q"):
+            return False
+        r-=1
+        c+=1
+    r=row
+    c=col
+    while(r<len(board) and c>=0):
+        if(board[r][c]=="Q"):
+            return False
+        r+=1
+        c-=1
+    r=row
+    c=col
+    while(r<len(board) and c<len(board)):
+        if(board[r][c]=="Q"):
+            return False
+        r+=1
+        c+=1
+
+    return True
+
+def save(allboards,board):
+    newBoard=[]
+    for row in board:
+        newBoard.append(''.join(row))
+    allboards.append(newBoard)
+
+def nqueen(board,allboards,col):
+    if(col==len(board)):
+        save(allboards,board)
+        return
+
+    for row in range(len(board)):
+        if(isSafe(board,row,col)):
+            board[row][col]="Q"
+            nqueen(board,allboards,col+1)
+            board[row][col]="."
+
+            
+nqueen(board,allboards,0)
+print(allboards)
+    

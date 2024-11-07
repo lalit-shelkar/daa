@@ -1,0 +1,32 @@
+def fibo(n):
+    if n<=1:
+        return n
+    return fibo(n-1)+fibo(n-2)
+
+def fiboR(n):
+    series=[fibo(x) for x in range(n+1)]
+    print(series)
+
+def fiboI(n):
+    if n==0:
+        print('[0]')
+        return
+    elif n==1:
+        print('[0,1]')
+        return
+    series=[0,1]
+    prev1=0
+    prev2=1
+
+    for i in range(2,n+1):
+        r=prev1+prev2
+        series.append(r)
+        prev1=prev2
+        prev2=r
+    print(series)
+
+def main():
+    n=int(input("Enter index till u want sequnce"))
+    fiboR(5)
+    fiboI(5)
+main()

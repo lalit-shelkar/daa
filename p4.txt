@@ -1,0 +1,34 @@
+import heapq
+
+def calculate_frequency(s):
+    frequency = {}
+    for char in s :
+        frequency[char]=frequency.get(char,0)+1
+    return frequency
+
+def huffman_encode(frequency):
+    heap = [[weight,[char,""]] for char,weight in frequency.items()]
+    heapq.heapify(heap)
+    while len(heap)>1:
+        low = heapq.heappop(heap)
+        high = heapq.heappop(heap)
+        for pair in low[1:]:
+            pair[1]= "0"+ pair[1]
+        for pair in high[1:]:
+            pair[1] = "1"+pair[1]
+        print("---",[low[0]+high[0]]+low[1:]+high[1:])
+        heapq.heappush(heap,[low[0]+high[0]]+low[1:]+high[1:])
+        
+    return heap
+    #return sorted(heapq.heappop(heap)[1:],key=lambda p: (len(p[-1]),p))
+def main():
+    s="abracadabra"
+    frequency = calculate_frequency(s)
+    huffman_codes = huffman_encode(frequency)
+    print("Character Codes :",huffman_codes)
+    l=sorted(heapq.heappop(huffman_codes)[1:],key=lambda p: (len(p[-1]),p[0]))
+    print("Frequencies :",frequency)
+    print(l)
+    
+main()
+#Character Codes : [[11, ['a', '0'], ['r', '10'], ['b', '110'], ['c', '1110'], ['d', '1111']]]

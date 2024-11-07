@@ -1,0 +1,24 @@
+import random
+
+def quicksort(arr):
+    if(len(arr)<=1):
+        return arr
+    pivot=arr[-1]
+    left=[x for x in arr[:-1] if x<=pivot]
+    right=[x for x in arr[:-1] if x>pivot]
+    return quicksort(left)+[pivot]+quicksort(right)
+
+
+def quicksortR(arr):
+    if(len(arr)<=1):
+        return arr
+    randomIndex=random.randint(0,len(arr)-1)
+    pivot=arr[randomIndex]
+    arr[-1],pivot=pivot,arr[-1]
+    left=[x for x in arr[:-1] if x<=pivot]
+    right=[x for x in arr[:-1] if x>pivot]
+    return quicksort(left)+[pivot]+quicksort(right)
+arr=[777,20,200,4,5]
+#sortedarray=quicksort(arr)
+sortedarray2=quicksortR(arr)
+print(sortedarray2)
